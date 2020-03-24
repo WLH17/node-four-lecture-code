@@ -9,6 +9,7 @@ const express = require('express'),
 
 app.use(express.json());
 
+//express-session is used in TLM(top-level middleware). It gets invoked and passed an object. This object contains settings for the session. Resave determines whether the session should save if an existing session hasn't had any changes to it, saveUninitialized determines whether a new session should save even if nothing has been added to it, secret is extra security for a users cookie, and the cookie property allows you to change settings for the user cookie, such as how long the cookie should exist (maxAge).
 app.use(session({
     resave: false,
     saveUninitialized: true,
@@ -24,6 +25,7 @@ massive({
     console.log('db connected')
 })
 
+//Authentication endpoints for register and login are typically post requests because they use a req.body to send a users login or register information. Logout can be a post(to be consistent with the other two endpoints) or a get endpoint.
 app.post('/api/register', authCtrl.register);
 app.post('/api/login', authCtrl.login);
 app.get('/api/logout', authCtrl.logout);
